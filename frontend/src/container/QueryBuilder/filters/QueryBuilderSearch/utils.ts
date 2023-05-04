@@ -1,4 +1,7 @@
 import { OPERATORS } from 'constants/queryBuilder';
+import * as Papa from 'papaparse';
+
+const TAG_FSM = /(\w+(?:\.\w+)*)\s*(!=|=|<|<=|>|>=|IN|NOT_IN|LIKE|NOT_LIKE|EXISTS|NOT_EXISTS|CONTAINS|NOT_CONTAINS)\s*([\s\S]*)/g;
 
 export function isValueHaveInNotInOperator(value: string): boolean {
 	return value?.includes(OPERATORS.IN || OPERATORS.NIN);
@@ -33,6 +36,30 @@ interface ITagToken {
 }
 
 export function getTagToken(tag: string): ITagToken {
+	// start
+	const matches = tag?.matchAll(TAG_FSM);
+	const [match] = matches ? Array.from(matches) : [];
+	if (match) {
+		const [, matchTagKey, matchTagOperator, matchTagValue] = match;
+		const toReturn = {
+			tagKey: matchTagKey,
+			tagOperator: matchTagOperator,
+			tagValue:
+				matchTagOperator === OPERATORS.IN || matchTagOperator === OPERATORS.NIN
+					? Papa.parse(matchTagValue).data
+					: [matchTagValue],
+		};
+		console.log(toReturn);
+	} else {
+		// no match, only tagKey is present
+		const toReturn = {
+			tagKey: tag,
+			tagOperator: '',
+			tagValue: [],
+		};
+		console.log(toReturn);
+	}
+	// end
 	const [tagKey, tagOperator, ...tagValue] = tag.split(' ');
 	return {
 		tagKey,
