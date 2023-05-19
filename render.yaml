@@ -5,4 +5,4 @@ services:
     region: oregon # optional (defaults to oregon)
     plan: starter # optional (defaults to starter instance type)
     branch: main # optional (defaults to master)
-    dockerCommand: cd signoz/deploy/; ./install.sh
+    dockerCommand: docker compose up
