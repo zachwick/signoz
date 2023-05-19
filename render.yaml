@@ -6,3 +6,4 @@ services:
     plan: starter # optional (defaults to starter instance type)
     branch: main # optional (defaults to master)
     dockerCommand: docker compose up
+    rootDir: deploy
