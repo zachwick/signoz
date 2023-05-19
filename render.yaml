@@ -5,5 +5,4 @@ services:
     region: oregon # optional (defaults to oregon)
     plan: starter # optional (defaults to starter instance type)
     branch: main # optional (defaults to master)
-    dockerCommand: docker compose up
-    rootDir: deploy
+    dockerCommand: cd deploy; docker-compose -f docker/clickhouse-setup/docker-compose.yaml up -d
