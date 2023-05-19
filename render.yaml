@@ -5,4 +5,4 @@ services:
     region: oregon # optional (defaults to oregon)
     plan: starter # optional (defaults to starter instance type)
     branch: main # optional (defaults to master)
-    dockerCommand: cd signoz/deploy/; docker-compose -f docker/clickhouse-setup/docker-compose.yaml up -d
+    dockerCommand: cd signoz/deploy/; ./install.sh; docker-compose -f docker/clickhouse-setup/docker-compose.yaml up -d
